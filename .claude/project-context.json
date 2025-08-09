@@ -1,0 +1,46 @@
+{
+  "project": {
+    "name": "AI Specification Assistant",
+    "codename": "SpecMentor",
+    "version": "0.1.0",
+    "created": "2025-08-09",
+    "description": "AI-powered tool that helps beginners create comprehensive software specifications"
+  },
+  "architecture": {
+    "platform": "Web Application",
+    "frontend": "React.js with TypeScript",
+    "backend": "Node.js/Express",
+    "database": "PostgreSQL",
+    "ai_integration": "Anthropic Claude API",
+    "hosting": "Vercel + Railway/Render",
+    "authentication": "Auth0 or NextAuth.js"
+  },
+  "current_phase": {
+    "phase": 1,
+    "phase_name": "Project Foundation",
+    "step": "1.1",
+    "step_name": "Project Skeleton Setup + User Onboarding",
+    "status": "ready_to_start",
+    "started_date": "2025-08-09"
+  },
+  "development_strategy": {
+    "approach": "Incremental, phase-by-phase development",
+    "validation_required": true,
+    "testing_first": true,
+    "token_optimization": "File-based context management",
+    "session_structure": "Single responsibility per session"
+  },
+  "key_principles": [
+    "One phase at a time",
+    "Validate before proceeding",
+    "Incremental complexity",
+    "Test early and often",
+    "Error handling first"
+  ],
+  "success_metrics": {
+    "spec_quality": "% projects building successfully on first attempt",
+    "token_efficiency": "Average tokens vs project complexity",
+    "user_learning": "Self-reported confidence improvement",
+    "development_speed": "Time from idea to working prototype"
+  }
+}
