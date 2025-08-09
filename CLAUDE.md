@@ -87,6 +87,21 @@ npm run db:migrate   # Run database migrations
 npm test            # Run test suite
 ```
 
+### Development Best Practices
+**Important**: Always restart the development server after making changes to:
+- API service files (`src/services/claudeApi.ts`)
+- Environment configuration
+- Package.json dependencies
+- Vite configuration
+
+**Restart Command**: `Ctrl+C` to stop, then `npm run dev` to restart
+
+This ensures:
+- New code changes are properly loaded
+- API proxy configurations are refreshed
+- Environment variables are reloaded
+- Build cache is cleared
+
 ## Feature Specifications
 
 ### 1. User Onboarding & Setup System

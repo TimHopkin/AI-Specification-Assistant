@@ -70,6 +70,7 @@ export const ToolsInstallationStep: React.FC<StepProps> = ({ onNext, onBack }) =
     }
   };
 
+
   const allToolsInstalled = Object.values(state.toolsInstallation).every(Boolean);
 
   return (

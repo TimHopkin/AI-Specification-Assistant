@@ -23,7 +23,6 @@ export interface SetupProgress {
 
 export interface ToolInstallation {
   cursor: boolean;
-  claudeCode: boolean;
   git: boolean;
   github: boolean;
 }

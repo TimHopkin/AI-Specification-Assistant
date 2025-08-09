@@ -16,7 +16,6 @@ const initialState: AppState = {
   },
   toolsInstallation: {
     cursor: false,
-    claudeCode: false,
     git: false,
     github: false,
   },

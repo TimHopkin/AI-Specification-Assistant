@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Layout } from './ui/Layout';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
+import { ChatInterface } from './chat/ChatInterface';
 import { useApp } from '../contexts/AppContext';
 import { MessageSquare, Settings, HelpCircle, Sparkles, Brain, Zap, Shield, Target, TrendingUp, CheckCircle2 } from 'lucide-react';
 
 export const MainApp: React.FC = () => {
   const { state, actions } = useApp();
+  const [currentView, setCurrentView] = useState<'dashboard' | 'chat'>('dashboard');
 
   const handleStartSpecification = () => {
-    // This will be implemented in Phase 2
-    console.log('Starting specification creation...');
+    setCurrentView('chat');
   };
+
+  const handleBackToDashboard = () => {
+    setCurrentView('dashboard');
+  };
+
+  // Show chat interface if user clicked "Begin Specification"
+  if (currentView === 'chat') {
+    return <ChatInterface onBack={handleBackToDashboard} />;
+  }
 
   const handleOpenSettings = () => {
     // Settings functionality
