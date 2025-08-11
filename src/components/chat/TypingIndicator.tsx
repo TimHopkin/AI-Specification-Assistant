@@ -3,51 +3,51 @@ import { Bot, Brain, Sparkles } from 'lucide-react';
 
 export const TypingIndicator: React.FC = () => {
   return (
-    <div className="flex items-start gap-4 mb-6 animate-fade-in-up">
-      {/* Modern AI avatar matching the new message bubble style */}
-      <div className="flex-shrink-0 relative">
-        <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/25 relative overflow-hidden">
-          <Bot className="w-5 h-5 text-white relative z-10 animate-pulse" />
-          {/* Animated gradient overlay */}
+    <div className="flex items-start gap-4 mb-8 animate-fade-in-up">
+      {/* Premium AI avatar matching the new message bubble style */}
+      <div className="flex-shrink-0 relative group">
+        <div className="w-11 h-11 bg-gradient-to-br from-violet-500 via-purple-500 to-indigo-500 rounded-2xl flex items-center justify-center shadow-xl shadow-purple-500/30 relative overflow-hidden transition-all duration-300">
+          <Bot className="w-6 h-6 text-white relative z-10 animate-pulse" />
+          {/* Enhanced animated gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full animate-shimmer" />
-          {/* Processing indicator */}
-          <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-yellow-500 rounded-full flex items-center justify-center animate-bounce">
-            <Brain className="w-1.5 h-1.5 text-white" />
+          {/* Premium processing indicator */}
+          <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center animate-bounce shadow-lg">
+            <Brain className="w-2 h-2 text-white" />
           </div>
         </div>
       </div>
       
-      {/* Modern typing bubble */}
-      <div className="max-w-2xl group">
+      {/* Premium typing bubble */}
+      <div className="max-w-3xl group">
         <div className="relative">
-          <div className="bg-white/90 backdrop-blur-xl text-gray-800 shadow-lg shadow-gray-900/10 border border-gray-200/50 px-5 py-4 rounded-3xl rounded-bl-lg relative transition-all duration-300 animate-scale-in">
-            {/* Subtle animated background */}
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-indigo-500/5 via-purple-500/10 to-pink-500/5 animate-pulse" />
+          <div className="bg-white/95 backdrop-blur-2xl text-gray-800 shadow-xl shadow-gray-900/15 border border-white/50 px-6 py-5 rounded-3xl rounded-bl-xl relative transition-all duration-300 animate-scale-in group-hover:scale-[1.02] group-hover:shadow-2xl hover:shadow-gray-900/20">
+            {/* Premium animated background */}
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-violet-500/8 via-purple-500/12 to-indigo-500/8 animate-pulse" />
             
-            <div className="flex items-center gap-4 relative z-10">
-              {/* Modern typing dots */}
-              <div className="flex items-center gap-1">
+            <div className="flex items-center gap-5 relative z-10">
+              {/* Premium typing dots */}
+              <div className="flex items-center gap-1.5">
                 <div 
-                  className="w-2.5 h-2.5 bg-indigo-500 rounded-full animate-bounce shadow-sm" 
-                  style={{ animationDelay: '0ms', animationDuration: '1.2s' }} 
+                  className="w-3 h-3 bg-gradient-to-r from-violet-500 to-indigo-500 rounded-full animate-bounce shadow-lg shadow-violet-500/50" 
+                  style={{ animationDelay: '0ms', animationDuration: '1.4s' }} 
                 />
                 <div 
-                  className="w-2.5 h-2.5 bg-purple-500 rounded-full animate-bounce shadow-sm" 
-                  style={{ animationDelay: '200ms', animationDuration: '1.2s' }} 
+                  className="w-3 h-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full animate-bounce shadow-lg shadow-purple-500/50" 
+                  style={{ animationDelay: '200ms', animationDuration: '1.4s' }} 
                 />
                 <div 
-                  className="w-2.5 h-2.5 bg-pink-500 rounded-full animate-bounce shadow-sm" 
-                  style={{ animationDelay: '400ms', animationDuration: '1.2s' }} 
+                  className="w-3 h-3 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-full animate-bounce shadow-lg shadow-indigo-500/50" 
+                  style={{ animationDelay: '400ms', animationDuration: '1.4s' }} 
                 />
               </div>
               
-              {/* Typing text with modern styling */}
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-gray-600 animate-pulse">
+              {/* Premium typing text */}
+              <div className="flex items-center gap-3">
+                <span className="text-[16px] font-medium text-gray-700 animate-pulse tracking-wide">
                   AI is thinking
                 </span>
-                <div className="flex items-center gap-0.5">
-                  <Sparkles className="w-3 h-3 text-indigo-500 animate-spin" style={{ animationDuration: '3s' }} />
+                <div className="flex items-center gap-1">
+                  <Sparkles className="w-4 h-4 text-violet-500 animate-spin shadow-lg" style={{ animationDuration: '3s' }} />
                 </div>
               </div>
             </div>
@@ -57,11 +57,13 @@ export const TypingIndicator: React.FC = () => {
           </div>
         </div>
         
-        {/* Status indicator */}
-        <div className="flex items-center gap-2 mt-2 justify-start">
-          <div className="flex items-center gap-1.5 px-2 py-1 rounded-full backdrop-blur-sm bg-indigo-500/10 text-indigo-600">
-            <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
-            <span className="font-medium text-xs">Processing</span>
+        {/* Premium status indicator */}
+        <div className="flex items-center gap-3 mt-3 justify-start">
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full backdrop-blur-lg transition-all duration-300 hover:scale-105 bg-violet-500/15 text-violet-600 hover:bg-violet-500/20 border border-violet-500/20">
+            <div className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse shadow-lg shadow-violet-500/50" />
+            <span className="font-semibold text-xs tracking-wide">Processing</span>
+            <div className="w-1 h-1 rounded-full bg-violet-400 opacity-60"></div>
+            <span className="text-violet-600 font-bold text-xs tracking-wider">AI</span>
           </div>
         </div>
       </div>

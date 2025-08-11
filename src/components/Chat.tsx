@@ -16,6 +16,17 @@ export interface Message {
 export const Chat: React.FC = () => {
   const navigate = useNavigate();
   const [showMobileProgress, setShowMobileProgress] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
+
+  // Add responsive behavior
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth > 1024);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -163,22 +174,21 @@ Please wait a moment and try again. If the problem persists, check your API key 
 
   return (
     <div style={{
-      height: '100vh',
+      minHeight: '100vh',
       display: 'flex',
       flexDirection: 'column',
       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
       fontFamily: 'Inter, system-ui, sans-serif'
     }}>
-      {/* Premium Header matching home page */}
+      {/* Premium Header matching dashboard page */}
       <div style={{
         flexShrink: '0',
         background: 'rgba(255, 255, 255, 0.1)',
         backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
         borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
         padding: '1rem 2rem'
       }}>
-        {/* Modern API Error Banner */}
+        {/* API Error Banner */}
         {apiError && (
           <div style={{
             marginBottom: '1rem',
@@ -334,15 +344,31 @@ Please wait a moment and try again. If the problem persists, check your API key 
         </div>
       </div>
 
-      <div style={{ flex: '1', display: 'flex', overflow: 'hidden' }}>
+      {/* Content Wrapper - Matching Dashboard Structure */}
+      <div style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '2rem',
+        flex: '1',
+        width: '100%'
+      }}>
+        {/* Main Content Grid - Matching Dashboard Layout */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isDesktop ? '1fr 320px' : '1fr',
+          gap: '2rem',
+          minHeight: 'calc(100vh - 120px)' // Account for header height
+        }}>
         {/* Main Chat Area with Premium Styling */}
         <div style={{ 
-          flex: '1', 
           display: 'flex', 
           flexDirection: 'column',
           background: 'rgba(255, 255, 255, 0.05)',
           backdropFilter: 'blur(10px)',
-          minWidth: 0
+          borderRadius: '16px',
+          minWidth: 0,
+          overflow: 'hidden',
+          minHeight: '600px'
         }}>
           <MessageList 
             messages={messages} 
@@ -356,21 +382,24 @@ Please wait a moment and try again. If the problem persists, check your API key 
         </div>
 
         {/* Premium Confidence Sidebar - Hidden on mobile, visible on larger screens */}
-        <div style={{
-          width: window.innerWidth > 1024 ? '320px' : '0',
-          flexShrink: '0',
-          background: 'rgba(255, 255, 255, 0.1)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          borderLeft: '1px solid rgba(255, 255, 255, 0.2)',
-          display: window.innerWidth > 1024 ? 'block' : 'none'
-        }}>
-          <ConfidencePanel 
-            confidence={confidence}
-            overallConfidence={overallConfidence}
-            canGenerateSpec={canGenerateSpec}
-            specificationContext={specificationContext}
-          />
+        {isDesktop && (
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            borderRadius: '16px',
+            overflow: 'hidden',
+            minHeight: '600px'
+          }}>
+            <ConfidencePanel 
+              confidence={confidence}
+              overallConfidence={overallConfidence}
+              canGenerateSpec={canGenerateSpec}
+              specificationContext={specificationContext}
+            />
+          </div>
+        )}
         </div>
       </div>
       
@@ -378,7 +407,7 @@ Please wait a moment and try again. If the problem persists, check your API key 
       <button
         onClick={() => setShowMobileProgress(true)}
         style={{
-          display: window.innerWidth <= 1024 ? 'flex' : 'none',
+          display: !isDesktop ? 'flex' : 'none',
           position: 'fixed',
           bottom: '2rem',
           right: '2rem',

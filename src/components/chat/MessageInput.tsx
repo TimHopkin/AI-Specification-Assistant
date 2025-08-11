@@ -53,20 +53,20 @@ export const MessageInput: React.FC<MessageInputProps> = ({
         {/* Modern Quick Suggestions */}
         {message.length === 0 && (
           <div className="mb-4 animate-fade-in">
-            <p className="text-sm font-semibold text-gray-700 mb-3 flex items-center">
-              <Sparkles className="w-4 h-4 mr-2 text-indigo-500 animate-pulse" />
+            <p className="text-[15px] font-semibold text-white/90 mb-4 flex items-center">
+              <Sparkles className="w-4 h-4 mr-2 text-yellow-400 animate-pulse shadow-lg" />
               Quick starters:
             </p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-3">
               {suggestions.map((suggestion, index) => (
                 <button
                   key={index}
                   onClick={() => setMessage(suggestion)}
                   disabled={disabled}
-                  className="group text-sm text-gray-600 bg-gray-100/80 hover:bg-gray-200/80 px-3 py-1.5 rounded-full transition-all duration-200 border border-gray-200/60 hover:border-gray-300/60 backdrop-blur-sm animate-fade-in-up"
+                  className="group text-sm font-medium text-white/80 bg-white/15 hover:bg-white/25 px-4 py-2 rounded-full transition-all duration-300 border border-white/20 hover:border-white/40 backdrop-blur-lg animate-fade-in-up hover:scale-105 shadow-lg hover:shadow-xl"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <span className="group-hover:text-gray-800 transition-colors">{suggestion}</span>
+                  <span className="group-hover:text-white transition-colors tracking-wide">{suggestion}</span>
                 </button>
               ))}
             </div>
@@ -77,7 +77,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
         <form onSubmit={handleSubmit} className="relative">
           <div className="flex items-end gap-3">
             <div className="flex-1 relative group">
-              <div className="relative bg-white/90 backdrop-blur-xl border border-gray-200/50 rounded-3xl shadow-lg shadow-gray-900/5 transition-all duration-300 group-focus-within:shadow-xl group-focus-within:shadow-indigo-500/20 group-focus-within:border-indigo-300/50">
+              <div className="relative bg-white/20 backdrop-blur-2xl border border-white/30 rounded-3xl shadow-xl shadow-black/10 transition-all duration-300 group-focus-within:shadow-2xl group-focus-within:shadow-blue-500/30 group-focus-within:border-blue-400/60 group-focus-within:bg-white/30">
                 <textarea
                   ref={textareaRef}
                   value={message}
@@ -85,51 +85,54 @@ export const MessageInput: React.FC<MessageInputProps> = ({
                   onKeyPress={handleKeyPress}
                   placeholder={disabled ? "AI is thinking..." : "Share your project idea or ask any questions..."}
                   disabled={disabled}
-                  className="w-full min-h-[52px] max-h-[140px] px-5 py-4 bg-transparent resize-none focus:outline-none text-[15px] font-medium placeholder:text-gray-400 disabled:opacity-50"
+                  className="w-full min-h-[56px] max-h-[160px] px-6 py-4 bg-transparent resize-none focus:outline-none text-[16px] font-medium text-white placeholder:text-white/60 disabled:opacity-50 tracking-wide leading-relaxed"
                   rows={1}
                 />
                 
-                {/* Modern focus ring effect */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-indigo-500/5 via-purple-500/5 to-pink-500/5 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                {/* Premium focus ring effect */}
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/10 via-indigo-500/15 to-purple-500/10 opacity-0 group-focus-within:opacity-100 transition-all duration-500 pointer-events-none" />
                 
-                {/* Character count */}
+                {/* Premium character count */}
                 {message.length > 0 && (
-                  <div className="absolute bottom-3 right-16 text-xs text-gray-400 font-medium">
+                  <div className="absolute bottom-4 right-20 text-xs text-white/50 font-semibold bg-white/10 px-2 py-1 rounded-full backdrop-blur-sm border border-white/20">
                     {message.length}/1000
                   </div>
                 )}
               </div>
             </div>
             
-            {/* Modern send button */}
+            {/* Premium send button */}
             <button
               type="submit"
               disabled={!message.trim() || disabled}
               className={`
-                h-12 w-12 rounded-2xl flex items-center justify-center transition-all duration-300 relative overflow-hidden group
+                h-14 w-14 rounded-2xl flex items-center justify-center transition-all duration-300 relative overflow-hidden group shadow-xl
                 ${!message.trim() || disabled 
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                  : 'bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/30 hover:scale-105 active:scale-95'
+                  ? 'bg-white/10 text-white/30 cursor-not-allowed border border-white/20' 
+                  : 'bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 text-white shadow-blue-500/30 hover:shadow-2xl hover:shadow-blue-500/40 hover:scale-110 active:scale-95 border border-blue-400/50'
                 }
               `}
             >
-              <Send className={`w-5 h-5 transition-transform duration-200 ${!disabled && message.trim() ? 'group-hover:translate-x-0.5 group-hover:-translate-y-0.5' : ''}`} />
+              <Send className={`w-6 h-6 transition-all duration-300 ${!disabled && message.trim() ? 'group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:scale-110' : ''}`} />
               {!disabled && message.trim() && (
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                <>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400/20 to-purple-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </>
               )}
             </button>
           </div>
         </form>
 
-        {/* Modern help text */}
-        <div className="flex items-center justify-center gap-6 mt-3 text-xs text-gray-500">
-          <div className="flex items-center gap-1.5">
-            <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-pulse" />
-            <span>Enter to send</span>
+        {/* Premium help text */}
+        <div className="flex items-center justify-center gap-8 mt-4 text-xs text-white/60">
+          <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300">
+            <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse shadow-lg shadow-blue-400/50" />
+            <span className="font-medium tracking-wide">Enter to send</span>
           </div>
-          <div className="flex items-center gap-1.5">
-            <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
-            <span>Shift+Enter for new line</span>
+          <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300">
+            <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse shadow-lg shadow-purple-400/50" style={{ animationDelay: '0.5s' }} />
+            <span className="font-medium tracking-wide">Shift+Enter for new line</span>
           </div>
         </div>
       </div>

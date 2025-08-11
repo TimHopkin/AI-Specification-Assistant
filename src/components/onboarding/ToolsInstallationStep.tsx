@@ -144,20 +144,87 @@ export const ToolsInstallationStep: React.FC<StepProps> = ({ onNext, onBack }) =
         ))}
       </div>
 
-      {/* Special note about Claude Code extension */}
+      {/* Detailed Claude Code Extension Setup */}
       <Card className="mb-8 bg-blue-50 border-blue-200">
-        <div className="flex items-start space-x-3">
-          <div className="flex-shrink-0">
-            <svg className="w-5 h-5 text-blue-600 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-            </svg>
+        <div className="space-y-4">
+          <div className="flex items-start space-x-3">
+            <div className="flex-shrink-0">
+              <svg className="w-5 h-5 text-blue-600 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div className="flex-1">
+              <h3 className="text-sm font-medium text-blue-800 mb-2">Claude Code Extension Setup</h3>
+              <p className="text-sm text-blue-700 mb-3">
+                Complete development environment setup with Claude AI integration:
+              </p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-sm font-medium text-blue-800 mb-1">Claude Code Extension</h3>
-            <p className="text-sm text-blue-700">
-              After installing Cursor, the Claude Code extension will be available in the marketplace. 
-              We'll help you set this up in the next step along with your API configuration.
-            </p>
+
+          <div className="bg-white bg-opacity-50 rounded-lg p-4">
+            <h4 className="text-sm font-semibold text-blue-900 mb-3">Step-by-Step Setup Guide:</h4>
+            <div className="space-y-3">
+              <div className="flex items-start space-x-3">
+                <div className="flex-shrink-0 w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-xs">1</div>
+                <div className="text-sm text-blue-800">
+                  <strong>Install Cursor IDE</strong>
+                  <p className="text-blue-700 mt-1">Download from cursor.sh and complete installation</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-3">
+                <div className="flex-shrink-0 w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-xs">2</div>
+                <div className="text-sm text-blue-800">
+                  <strong>Launch Cursor and Access Extensions</strong>
+                  <p className="text-blue-700 mt-1">Press <code className="bg-blue-100 px-1 rounded">Cmd+Shift+X</code> (Mac) or <code className="bg-blue-100 px-1 rounded">Ctrl+Shift+X</code> (Windows/Linux)</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-3">
+                <div className="flex-shrink-0 w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-xs">3</div>
+                <div className="text-sm text-blue-800">
+                  <strong>Search for Claude Code</strong>
+                  <p className="text-blue-700 mt-1">Type "Claude Code" in the search bar and install the official Anthropic extension</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-3">
+                <div className="flex-shrink-0 w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-xs">4</div>
+                <div className="text-sm text-blue-800">
+                  <strong>Configure API Key</strong>
+                  <p className="text-blue-700 mt-1">Open Command Palette (<code className="bg-blue-100 px-1 rounded">Cmd/Ctrl+Shift+P</code>) → "Claude Code: Set API Key" → Enter your Anthropic API key</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-3">
+                <div className="flex-shrink-0 w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-xs">5</div>
+                <div className="text-sm text-blue-800">
+                  <strong>Verify Setup</strong>
+                  <p className="text-blue-700 mt-1">Create a new file → Press <code className="bg-blue-100 px-1 rounded">Cmd/Ctrl+I</code> → Test Claude Code integration</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-yellow-50 rounded-lg p-3 border border-yellow-200">
+            <h4 className="text-sm font-semibold text-yellow-800 mb-2">💡 Quick Start Tips:</h4>
+            <ul className="text-sm text-yellow-700 space-y-1">
+              <li>• Use <code className="bg-yellow-100 px-1 rounded">Cmd/Ctrl+I</code> to start an inline chat with Claude</li>
+              <li>• Use <code className="bg-yellow-100 px-1 rounded">Cmd/Ctrl+L</code> to open the full chat sidebar</li>
+              <li>• Type <code className="bg-yellow-100 px-1 rounded">/help</code> in Claude Code chat for available commands</li>
+              <li>• Paste your generated specification directly into Claude Code chat to start building</li>
+            </ul>
+          </div>
+
+          <div className="bg-green-50 rounded-lg p-3 border border-green-200">
+            <h4 className="text-sm font-semibold text-green-800 mb-2">✅ Development Workflow:</h4>
+            <ol className="text-sm text-green-700 space-y-1">
+              <li>1. Create specification in this AI Specification Assistant</li>
+              <li>2. Copy the generated specification to your clipboard</li>
+              <li>3. Open Cursor IDE in your project directory</li>
+              <li>4. Start Claude Code chat (<code className="bg-green-100 px-1 rounded">Cmd/Ctrl+L</code>)</li>
+              <li>5. Paste specification and begin development!</li>
+            </ol>
           </div>
         </div>
       </Card>
