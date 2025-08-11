@@ -5,8 +5,9 @@ interface CardProps {
   className?: string;
   title?: string;
   description?: string;
-  variant?: 'default' | 'glass' | 'gradient' | 'elevated';
+  variant?: 'default' | 'elevated' | 'outlined' | 'beautiful' | 'floating' | 'glass' | 'gradient' | 'premium';
   hover?: boolean;
+  style?: React.CSSProperties;
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -15,40 +16,39 @@ export const Card: React.FC<CardProps> = ({
   title,
   description,
   variant = 'default',
-  hover = true,
+  hover = false,
+  style,
 }) => {
   const variantClasses = {
-    default: 'card',
-    glass: 'card-glass',
-    gradient: 'card-gradient',
-    elevated: 'bg-white rounded-2xl shadow-elegant-lg border border-neutral-100',
+    default: 'card-clean',
+    elevated: 'card-elevated',
+    outlined: 'bg-white rounded-lg p-6 border border-gray-200',
+    beautiful: 'card-beautiful-premium',
+    floating: 'card-floating', 
+    glass: 'card-glass-premium',
+    gradient: 'bg-gradient-primary rounded-2xl p-6 border-0 shadow-glow text-white',
+    premium: 'card-premium',
   };
   
-  const hoverClasses = hover ? 'hover:transform hover:scale-[1.01] cursor-pointer' : '';
+  const hoverClasses = hover ? 'hover:border-gray-300 cursor-pointer' : '';
   
   return (
-    <div className={`${variantClasses[variant]} ${hoverClasses} animate-slide-up group ${className}`}>
+    <div className={`${variantClasses[variant]} ${hoverClasses} ${className}`} style={style}>
       {(title || description) && (
-        <div className="pb-4 border-b border-white/10 mb-6">
+        <div className="pb-6 border-b border-gray-200 mb-6">
           {title && (
-            <h3 className="text-xl font-semibold text-neutral-800 group-hover:text-neutral-900 transition-colors duration-200">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
               {title}
             </h3>
           )}
           {description && (
-            <p className="mt-2 text-sm text-neutral-600 group-hover:text-neutral-700 transition-colors duration-200">
+            <p className="text-sm text-gray-600">
               {description}
             </p>
           )}
         </div>
       )}
-      <div className="relative">
-        {/* Subtle gradient overlay on hover */}
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-500/0 via-primary-500/[0.02] to-secondary-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
-        <div className="relative">
-          {children}
-        </div>
-      </div>
+      {children}
     </div>
   );
 };

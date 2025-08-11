@@ -606,7 +606,6 @@ Please try sending your message again - I should be able to provide more detaile
   // Test API key validity
   static async testApiKey(apiKey: string): Promise<boolean> {
     try {
-      const service = new ClaudeApiService(apiKey);
       const response = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
         headers: {

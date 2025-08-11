@@ -2,7 +2,7 @@ import React from 'react';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import type { StepProps } from '../../types';
-import { CheckCircle, Code2, MessageSquare, Sparkles, Zap, Brain, Rocket, Shield } from 'lucide-react';
+import { CheckCircle, Code2, Sparkles, Zap, Brain, Rocket, Shield } from 'lucide-react';
 
 export const WelcomeStep: React.FC<StepProps> = ({ onNext }) => {
   const features = [

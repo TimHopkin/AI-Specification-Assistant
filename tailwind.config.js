@@ -79,6 +79,8 @@ export default {
       spacing: {
         '18': '4.5rem',
         '88': '22rem',
+        '128': '32rem',
+        '144': '36rem',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -92,25 +94,44 @@ export default {
         'glass-inset': 'inset 0 -1px 0 0 rgba(255, 255, 255, 0.1)',
         'elegant': '0 4px 16px 0 rgba(31, 41, 55, 0.08)',
         'elegant-lg': '0 10px 40px 0 rgba(31, 41, 55, 0.12)',
+        'elegant-xl': '0 20px 60px 0 rgba(31, 41, 55, 0.15)',
         'glow': '0 0 20px rgba(59, 130, 246, 0.15)',
         'glow-lg': '0 0 40px rgba(59, 130, 246, 0.15)',
+        'glow-xl': '0 0 60px rgba(59, 130, 246, 0.2)',
+        'inner-elegant': 'inset 0 2px 8px 0 rgba(0, 0, 0, 0.06)',
+        'elevated': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+        'floating': '0 8px 30px rgba(0, 0, 0, 0.12)',
+        'soft': '0 2px 15px 0 rgba(0, 0, 0, 0.1)',
+        'card-hover': '0 30px 60px rgba(0, 0, 0, 0.12)',
+        'button-hover': '0 10px 25px rgba(59, 130, 246, 0.25)',
       },
       backdropBlur: {
         xs: '2px',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
+        'fade-in-up': 'fadeInUp 0.6s ease-out',
         'slide-in': 'slideIn 0.5s ease-out',
         'slide-up': 'slideUp 0.5s ease-out',
         'scale-in': 'scaleIn 0.3s ease-out',
         'bounce-gentle': 'bounceGentle 2s infinite',
         'pulse-soft': 'pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'shimmer': 'shimmer 2s linear infinite',
+        'glow-pulse': 'glowPulse 2s ease-in-out infinite',
+        'float': 'float 3s ease-in-out infinite',
+        'wiggle': 'wiggle 1s ease-in-out infinite',
+        'progress-fill': 'progressFill 1s ease-in-out',
+        'card-hover': 'cardHover 0.3s ease-out',
+        'button-press': 'buttonPress 0.1s ease-out',
       },
       keyframes: {
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
+        },
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(30px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         slideIn: {
           '0%': { transform: 'translateX(-100%)', opacity: '0' },
@@ -135,6 +156,31 @@ export default {
         shimmer: {
           '0%': { transform: 'translateX(-100%)' },
           '100%': { transform: 'translateX(100%)' },
+        },
+        glowPulse: {
+          '0%, 100%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.4)' },
+          '50%': { boxShadow: '0 0 40px rgba(59, 130, 246, 0.6)' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-3deg)' },
+          '50%': { transform: 'rotate(3deg)' },
+        },
+        progressFill: {
+          '0%': { width: '0%' },
+          '100%': { width: 'var(--progress-width)' },
+        },
+        cardHover: {
+          '0%': { transform: 'translateY(0) scale(1)' },
+          '100%': { transform: 'translateY(-4px) scale(1.02)' },
+        },
+        buttonPress: {
+          '0%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(0.98)' },
+          '100%': { transform: 'scale(1)' },
         },
       },
     },

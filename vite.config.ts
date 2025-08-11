@@ -12,8 +12,8 @@ export default defineConfig({
         target: 'https://api.anthropic.com',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/claude/, '/v1/messages'),
-        configure: (proxy, options) => {
-          proxy.on('proxyReq', (proxyReq, req, res) => {
+        configure: (proxy) => {
+          proxy.on('proxyReq', (proxyReq, req) => {
             // Forward the original headers including API key
             if (req.headers['x-api-key']) {
               proxyReq.setHeader('x-api-key', req.headers['x-api-key']);
@@ -23,10 +23,10 @@ export default defineConfig({
             }
             console.log('🚀 Proxying Claude API request:', proxyReq.method, proxyReq.path);
           });
-          proxy.on('proxyRes', (proxyRes, req, res) => {
+          proxy.on('proxyRes', (proxyRes) => {
             console.log('✅ Claude API response:', proxyRes.statusCode);
           });
-          proxy.on('error', (err, req, res) => {
+          proxy.on('error', (err) => {
             console.error('❌ Proxy error:', err.message);
           });
         },

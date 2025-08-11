@@ -1,6 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Card } from '../ui/Card';
-import { Button } from '../ui/Button';
 import { MessageList } from './MessageList';
 import { MessageInput } from './MessageInput';
 import { ConfidencePanel } from './ConfidencePanel';
@@ -20,7 +18,7 @@ interface ChatInterfaceProps {
 }
 
 export const ChatInterface: React.FC<ChatInterfaceProps> = ({ onBack }) => {
-  const { state } = useApp();
+  const { } = useApp();
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -174,23 +172,49 @@ Please wait a moment and try again. If the problem persists, check your API key 
   };
 
   return (
-    <div className="h-screen flex flex-col bg-gradient-to-br from-primary-50 to-secondary-50">
-      {/* Header */}
-      <div className="flex-shrink-0 bg-white/80 backdrop-blur-sm border-b border-neutral-200/60 px-6 py-4">
-        {/* API Error Banner */}
+    <div style={{
+      height: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      background: 'transparent',
+      fontFamily: 'Inter, system-ui, sans-serif'
+    }}>
+      {/* Premium Header */}
+      <div style={{
+        flexShrink: '0',
+        background: 'rgba(255, 255, 255, 0.1)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+        padding: '1.5rem'
+      }}>
+        {/* Premium API Error Banner */}
         {apiError && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-            <div className="flex items-center space-x-2">
-              <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0" />
-              <div className="flex-1">
-                <p className="text-sm font-medium text-red-800">API Connection Issue</p>
-                <p className="text-xs text-red-600 mt-1">
+          <div style={{
+            marginBottom: '1rem',
+            padding: '12px',
+            background: 'rgba(239, 68, 68, 0.1)',
+            border: '1px solid rgba(239, 68, 68, 0.3)',
+            borderRadius: '12px'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <AlertCircle style={{ width: '16px', height: '16px', color: '#dc2626', flexShrink: '0' }} />
+              <div style={{ flex: '1' }}>
+                <p style={{ fontSize: '0.875rem', fontWeight: '500', color: '#dc2626' }}>API Connection Issue</p>
+                <p style={{ fontSize: '0.75rem', color: '#dc2626', marginTop: '4px', opacity: '0.8' }}>
                   Having trouble connecting to Claude API. Check your internet connection and API key.
                 </p>
               </div>
               <button
                 onClick={() => setApiError(null)}
-                className="text-red-400 hover:text-red-600 text-sm"
+                style={{ 
+                  color: 'rgba(239, 68, 68, 0.6)', 
+                  fontSize: '0.875rem',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: '4px'
+                }}
               >
                 ✕
               </button>
@@ -198,55 +222,103 @@ Please wait a moment and try again. If the problem persists, check your API key 
           </div>
         )}
 
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="sm"
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <button
               onClick={onBack}
-              className="text-neutral-600 hover:text-neutral-800"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'rgba(255, 255, 255, 0.1)',
+                color: 'rgba(255, 255, 255, 0.9)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                borderRadius: '8px',
+                padding: '8px 12px',
+                fontSize: '0.875rem',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+                e.currentTarget.style.color = 'white';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                e.currentTarget.style.color = 'rgba(255, 255, 255, 0.9)';
+              }}
             >
-              <ArrowLeft className="w-4 h-4 mr-2" />
+              <ArrowLeft style={{ width: '16px', height: '16px' }} />
               Back to Dashboard
-            </Button>
+            </button>
             
-            <div className="h-6 w-px bg-neutral-300" />
+            <div style={{ height: '24px', width: '1px', background: 'rgba(255, 255, 255, 0.3)' }} />
             
             <div>
-              <h1 className="text-xl font-bold text-neutral-800">AI Specification Builder</h1>
-              <p className="text-sm text-neutral-600">
+              <h1 style={{ fontSize: '1.25rem', fontWeight: '700', color: 'white' }}>AI Specification Builder</h1>
+              <p style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.8)' }}>
                 Building comprehensive specifications through guided conversation
               </p>
             </div>
           </div>
 
-          <div className="flex items-center space-x-4">
-            <div className="text-right">
-              <div className="text-sm font-semibold text-neutral-700">Overall Progress</div>
-              <div className="text-2xl font-bold gradient-text">{overallConfidence}%</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <div style={{ textAlign: 'right' }}>
+              <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'rgba(255, 255, 255, 0.9)' }}>Overall Progress</div>
+              <div style={{ fontSize: '1.5rem', fontWeight: '700', color: '#60a5fa' }}>{overallConfidence}%</div>
             </div>
             
-            <Button
+            <button
               onClick={handleGenerateSpec}
               disabled={!canGenerateSpec}
-              variant={canGenerateSpec ? 'primary' : 'secondary'}
-              className="relative group"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: canGenerateSpec 
+                  ? 'linear-gradient(135deg, #ff6b6b, #feca57)' 
+                  : 'rgba(255, 255, 255, 0.1)',
+                color: 'white',
+                border: canGenerateSpec 
+                  ? 'none' 
+                  : '1px solid rgba(255, 255, 255, 0.2)',
+                borderRadius: '12px',
+                padding: '12px 16px',
+                fontSize: '0.875rem',
+                fontWeight: '600',
+                cursor: canGenerateSpec ? 'pointer' : 'not-allowed',
+                opacity: canGenerateSpec ? '1' : '0.5',
+                boxShadow: canGenerateSpec ? '0 4px 12px rgba(255, 107, 107, 0.4)' : 'none',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                if (canGenerateSpec) {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(255, 107, 107, 0.6)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (canGenerateSpec) {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(255, 107, 107, 0.4)';
+                }
+              }}
             >
-              <Download className="w-4 h-4 mr-2" />
+              <Download style={{ width: '16px', height: '16px' }} />
               {canGenerateSpec ? 'Generate Spec' : 'Keep Chatting'}
-              {canGenerateSpec && <Sparkles className="w-4 h-4 ml-2 group-hover:animate-bounce-gentle" />}
-            </Button>
+              {canGenerateSpec && <Sparkles style={{ width: '16px', height: '16px' }} />}
+            </button>
           </div>
         </div>
       </div>
 
-      <div className="flex-1 flex overflow-hidden">
+      <div style={{ flex: '1', display: 'flex', overflow: 'hidden' }}>
         {/* Main Chat Area */}
-        <div className="flex-1 flex flex-col">
+        <div style={{ flex: '1', display: 'flex', flexDirection: 'column' }}>
           <MessageList 
             messages={messages} 
             isLoading={isLoading}
-            messagesEndRef={messagesEndRef}
+            messagesEndRef={messagesEndRef as React.RefObject<HTMLDivElement>}
           />
           <MessageInput 
             onSendMessage={handleSendMessage}
@@ -254,8 +326,15 @@ Please wait a moment and try again. If the problem persists, check your API key 
           />
         </div>
 
-        {/* Confidence Sidebar */}
-        <div className="w-80 flex-shrink-0 bg-white/60 backdrop-blur-sm border-l border-neutral-200/60">
+        {/* Premium Confidence Sidebar */}
+        <div style={{
+          width: '320px',
+          flexShrink: '0',
+          background: 'rgba(255, 255, 255, 0.1)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          borderLeft: '1px solid rgba(255, 255, 255, 0.2)'
+        }}>
           <ConfidencePanel 
             confidence={confidence}
             overallConfidence={overallConfidence}
