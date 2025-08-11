@@ -89,12 +89,8 @@ export const MainApp: React.FC = () => {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '2fr 1fr',
-          gap: '3rem',
-          '@media (maxWidth: 1024px)': {
-            gridTemplateColumns: '1fr',
-            gap: '2rem'
-          }
+          gridTemplateColumns: window.innerWidth > 1024 ? '2fr 1fr' : '1fr',
+          gap: '3rem'
         }}>
           {/* Main Action Area */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
