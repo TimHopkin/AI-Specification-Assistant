@@ -1,6 +1,7 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import type { IncomingMessage, ServerResponse } from 'http'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -11,9 +12,9 @@ export default defineConfig({
       '/api/claude': {
         target: 'https://api.anthropic.com',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/claude/, '/v1/messages'),
-        configure: (proxy) => {
-          proxy.on('proxyReq', (proxyReq, req) => {
+        rewrite: (path: string) => path.replace(/^\/api\/claude/, '/v1/messages'),
+        configure: (proxy: any) => {
+          proxy.on('proxyReq', (proxyReq: any, req: IncomingMessage) => {
             // Forward the original headers including API key
             if (req.headers['x-api-key']) {
               proxyReq.setHeader('x-api-key', req.headers['x-api-key']);
@@ -21,13 +22,19 @@ export default defineConfig({
             if (req.headers['anthropic-version']) {
               proxyReq.setHeader('anthropic-version', req.headers['anthropic-version']);
             }
-            console.log('🚀 Proxying Claude API request:', proxyReq.method, proxyReq.path);
+            if (typeof console !== 'undefined') {
+              console.log('🚀 Proxying Claude API request:', proxyReq.method, proxyReq.path);
+            }
           });
-          proxy.on('proxyRes', (proxyRes) => {
-            console.log('✅ Claude API response:', proxyRes.statusCode);
+          proxy.on('proxyRes', (proxyRes: ServerResponse) => {
+            if (typeof console !== 'undefined') {
+              console.log('✅ Claude API response:', (proxyRes as any).statusCode);
+            }
           });
-          proxy.on('error', (err) => {
-            console.error('❌ Proxy error:', err.message);
+          proxy.on('error', (err: Error) => {
+            if (typeof console !== 'undefined') {
+              console.error('❌ Proxy error:', err.message);
+            }
           });
         },
       },
