@@ -640,8 +640,8 @@ export const useClaudeApi = () => {
   console.log('✅ API Valid flag:', state.apiConfiguration?.isValid);
   
   if (!state.apiConfiguration?.anthropicApiKey) {
-    console.error('❌ No API key found in state!');
-    throw new Error('No API key available. Please complete API configuration.');
+    console.warn('⚠️ No API key found in state - returning null');
+    return null;
   }
   
   console.log('✅ Creating Claude API service with key...');

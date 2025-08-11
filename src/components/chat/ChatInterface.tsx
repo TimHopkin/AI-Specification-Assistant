@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { MessageList } from './MessageList';
 import { MessageInput } from './MessageInput';
 import { ConfidencePanel } from './ConfidencePanel';
-import { useApp } from '../../contexts/AppContext';
 import { useClaudeApi, type SpecificationContext, type ConfidenceMetrics } from '../../services/claudeApi';
 import { ArrowLeft, Download, Sparkles, AlertCircle } from 'lucide-react';
 
@@ -18,7 +17,7 @@ interface ChatInterfaceProps {
 }
 
 export const ChatInterface: React.FC<ChatInterfaceProps> = ({ onBack }) => {
-  const { } = useApp();
+  const [showMobileProgress, setShowMobileProgress] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -52,13 +51,7 @@ Don't worry if you're not sure about the technical details yet - that's exactly 
   });
 
   // Initialize Claude API service (with error handling)
-  let claudeApi: any = null;
-  try {
-    claudeApi = useClaudeApi();
-  } catch (error) {
-    // API not configured - we'll show an error state
-    console.error('Claude API not available:', error);
-  }
+  const claudeApi = useClaudeApi();
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -172,49 +165,23 @@ Please wait a moment and try again. If the problem persists, check your API key 
   };
 
   return (
-    <div style={{
-      height: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      background: 'transparent',
-      fontFamily: 'Inter, system-ui, sans-serif'
-    }}>
-      {/* Premium Header */}
-      <div style={{
-        flexShrink: '0',
-        background: 'rgba(255, 255, 255, 0.1)',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
-        padding: '1.5rem'
-      }}>
-        {/* Premium API Error Banner */}
+    <div className="h-screen flex flex-col bg-transparent font-sans">
+      {/* Modern Header */}
+      <div className="flex-shrink-0 bg-white/80 backdrop-blur-xl border-b border-gray-200/50 px-4 py-3 sm:px-6 sm:py-4">
+        {/* Modern API Error Banner */}
         {apiError && (
-          <div style={{
-            marginBottom: '1rem',
-            padding: '12px',
-            background: 'rgba(239, 68, 68, 0.1)',
-            border: '1px solid rgba(239, 68, 68, 0.3)',
-            borderRadius: '12px'
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <AlertCircle style={{ width: '16px', height: '16px', color: '#dc2626', flexShrink: '0' }} />
-              <div style={{ flex: '1' }}>
-                <p style={{ fontSize: '0.875rem', fontWeight: '500', color: '#dc2626' }}>API Connection Issue</p>
-                <p style={{ fontSize: '0.75rem', color: '#dc2626', marginTop: '4px', opacity: '0.8' }}>
+          <div className="mb-4 p-3 bg-red-50/80 border border-red-200/50 rounded-2xl backdrop-blur-sm">
+            <div className="flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0" />
+              <div className="flex-1">
+                <p className="text-sm font-medium text-red-700">API Connection Issue</p>
+                <p className="text-xs text-red-600/80 mt-1">
                   Having trouble connecting to Claude API. Check your internet connection and API key.
                 </p>
               </div>
               <button
                 onClick={() => setApiError(null)}
-                style={{ 
-                  color: 'rgba(239, 68, 68, 0.6)', 
-                  fontSize: '0.875rem',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  padding: '4px'
-                }}
+                className="text-red-400 hover:text-red-500 transition-colors p-1"
               >
                 ✕
               </button>
@@ -222,99 +189,62 @@ Please wait a moment and try again. If the problem persists, check your API key 
           </div>
         )}
 
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
             <button
               onClick={onBack}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                background: 'rgba(255, 255, 255, 0.1)',
-                color: 'rgba(255, 255, 255, 0.9)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                borderRadius: '8px',
-                padding: '8px 12px',
-                fontSize: '0.875rem',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
-                e.currentTarget.style.color = 'white';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
-                e.currentTarget.style.color = 'rgba(255, 255, 255, 0.9)';
-              }}
+              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-gray-700 hover:text-gray-900 border border-gray-200/50 hover:border-gray-300/50 rounded-xl px-3 py-2 text-sm font-medium transition-all duration-200 backdrop-blur-sm"
             >
-              <ArrowLeft style={{ width: '16px', height: '16px' }} />
-              Back to Dashboard
+              <ArrowLeft className="w-4 h-4" />
+              <span className="hidden sm:inline">Back to Dashboard</span>
+              <span className="sm:hidden">Back</span>
             </button>
             
-            <div style={{ height: '24px', width: '1px', background: 'rgba(255, 255, 255, 0.3)' }} />
+            <div className="h-6 w-px bg-gray-300/50 hidden sm:block" />
             
-            <div>
-              <h1 style={{ fontSize: '1.25rem', fontWeight: '700', color: 'white' }}>AI Specification Builder</h1>
-              <p style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.8)' }}>
+            <div className="hidden sm:block">
+              <h1 className="text-lg font-bold text-gray-800">AI Specification Builder</h1>
+              <p className="text-sm text-gray-600">
                 Building comprehensive specifications through guided conversation
               </p>
             </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'rgba(255, 255, 255, 0.9)' }}>Overall Progress</div>
-              <div style={{ fontSize: '1.5rem', fontWeight: '700', color: '#60a5fa' }}>{overallConfidence}%</div>
+          <div className="flex items-center gap-3">
+            <div className="text-right hidden sm:block">
+              <div className="text-sm font-semibold text-gray-700">Overall Progress</div>
+              <div className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                {overallConfidence}%
+              </div>
             </div>
             
             <button
               onClick={handleGenerateSpec}
               disabled={!canGenerateSpec}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                background: canGenerateSpec 
-                  ? 'linear-gradient(135deg, #ff6b6b, #feca57)' 
-                  : 'rgba(255, 255, 255, 0.1)',
-                color: 'white',
-                border: canGenerateSpec 
-                  ? 'none' 
-                  : '1px solid rgba(255, 255, 255, 0.2)',
-                borderRadius: '12px',
-                padding: '12px 16px',
-                fontSize: '0.875rem',
-                fontWeight: '600',
-                cursor: canGenerateSpec ? 'pointer' : 'not-allowed',
-                opacity: canGenerateSpec ? '1' : '0.5',
-                boxShadow: canGenerateSpec ? '0 4px 12px rgba(255, 107, 107, 0.4)' : 'none',
-                transition: 'all 0.3s ease'
-              }}
-              onMouseEnter={(e) => {
-                if (canGenerateSpec) {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(255, 107, 107, 0.6)';
+              className={`
+                flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-300 
+                ${canGenerateSpec 
+                  ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/30 hover:scale-105 active:scale-95' 
+                  : 'bg-gray-100/80 text-gray-400 cursor-not-allowed backdrop-blur-sm'
                 }
-              }}
-              onMouseLeave={(e) => {
-                if (canGenerateSpec) {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(255, 107, 107, 0.4)';
-                }
-              }}
+              `}
             >
-              <Download style={{ width: '16px', height: '16px' }} />
-              {canGenerateSpec ? 'Generate Spec' : 'Keep Chatting'}
-              {canGenerateSpec && <Sparkles style={{ width: '16px', height: '16px' }} />}
+              <Download className="w-4 h-4" />
+              <span className="hidden sm:inline">
+                {canGenerateSpec ? 'Generate Spec' : 'Keep Chatting'}
+              </span>
+              <span className="sm:hidden">
+                {canGenerateSpec ? 'Generate' : 'Chat'}
+              </span>
+              {canGenerateSpec && <Sparkles className="w-4 h-4" />}
             </button>
           </div>
         </div>
       </div>
 
-      <div style={{ flex: '1', display: 'flex', overflow: 'hidden' }}>
+      <div className="flex-1 flex overflow-hidden">
         {/* Main Chat Area */}
-        <div style={{ flex: '1', display: 'flex', flexDirection: 'column' }}>
+        <div className="flex-1 flex flex-col min-w-0">
           <MessageList 
             messages={messages} 
             isLoading={isLoading}
@@ -326,15 +256,8 @@ Please wait a moment and try again. If the problem persists, check your API key 
           />
         </div>
 
-        {/* Premium Confidence Sidebar */}
-        <div style={{
-          width: '320px',
-          flexShrink: '0',
-          background: 'rgba(255, 255, 255, 0.1)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          borderLeft: '1px solid rgba(255, 255, 255, 0.2)'
-        }}>
+        {/* Modern Confidence Sidebar - Hidden on mobile, visible on larger screens */}
+        <div className="hidden lg:block w-80 xl:w-96 flex-shrink-0 bg-white/80 backdrop-blur-xl border-l border-gray-200/50">
           <ConfidencePanel 
             confidence={confidence}
             overallConfidence={overallConfidence}
@@ -343,6 +266,53 @@ Please wait a moment and try again. If the problem persists, check your API key 
           />
         </div>
       </div>
+      
+      {/* Mobile Progress Button */}
+      <button
+        onClick={() => setShowMobileProgress(true)}
+        className={`lg:hidden fixed bottom-6 right-6 w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-2xl shadow-2xl shadow-indigo-500/25 flex flex-col items-center justify-center gap-1 transition-all duration-300 hover:scale-110 active:scale-95 z-50 ${overallConfidence >= 80 ? 'button-sparkle' : ''}`}
+      >
+        <div className="text-xs font-bold">{overallConfidence}%</div>
+        <div className="w-8 h-1 bg-white/30 rounded-full overflow-hidden">
+          <div 
+            className="h-full bg-white rounded-full transition-all duration-700"
+            style={{ width: `${overallConfidence}%` }}
+          />
+        </div>
+      </button>
+
+      {/* Mobile Progress Panel Overlay */}
+      {showMobileProgress && (
+        <div className="lg:hidden fixed inset-0 z-50 flex">
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={() => setShowMobileProgress(false)}
+          />
+          
+          {/* Panel */}
+          <div className="relative ml-auto w-full max-w-sm bg-white/95 backdrop-blur-xl h-full overflow-y-auto animate-slide-in">
+            <div className="p-4">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-bold text-gray-800">Progress Tracker</h2>
+                <button
+                  onClick={() => setShowMobileProgress(false)}
+                  className="w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors"
+                >
+                  ×
+                </button>
+              </div>
+              
+              <ConfidencePanel 
+                confidence={confidence}
+                overallConfidence={overallConfidence}
+                canGenerateSpec={canGenerateSpec}
+                specificationContext={specificationContext}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
