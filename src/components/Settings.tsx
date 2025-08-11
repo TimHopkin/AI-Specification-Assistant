@@ -16,8 +16,8 @@ export const Settings: React.FC = () => {
   const [validationMessage, setValidationMessage] = useState('');
 
   // User preferences state
-  const [language, setLanguage] = useState('en-GB');
-  const [theme, setTheme] = useState('default');
+  const [language, setLanguage] = useState<'en-GB' | 'en-US'>('en-GB');
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   // Load current settings on mount
   useEffect(() => {
@@ -26,7 +26,7 @@ export const Settings: React.FC = () => {
     }
     if (state.user?.preferences) {
       setLanguage(state.user.preferences.language || 'en-GB');
-      setTheme(state.user.preferences.theme || 'default');
+      setTheme(state.user.preferences.theme || 'light');
     }
   }, [state]);
 
@@ -626,7 +626,7 @@ export const Settings: React.FC = () => {
                 </label>
                 <select 
                   value={language}
-                  onChange={(e) => setLanguage(e.target.value)}
+                  onChange={(e) => setLanguage(e.target.value as 'en-GB' | 'en-US')}
                   style={{
                     width: '100%',
                     padding: '8px 12px',
@@ -655,7 +655,7 @@ export const Settings: React.FC = () => {
                 </label>
                 <select 
                   value={theme}
-                  onChange={(e) => setTheme(e.target.value)}
+                  onChange={(e) => setTheme(e.target.value as 'light' | 'dark')}
                   style={{
                     width: '100%',
                     padding: '8px 12px',
